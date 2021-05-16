@@ -1,0 +1,126 @@
+---
+#
+# The network connection profile provides client applications the information about the target
+# blockchain network that are necessary for the applications to interact with it.
+name: "dev"
+
+#
+# Describe what the target network is/does.
+#
+description: "A development enviornment setup"
+
+#
+# Schema version of the content. Used by the SDK to apply the corresponding parsing rules.
+#
+version: "1.0"
+
+#
+# list of participating organizations in this network
+#
+organizations:
+  Org2:
+    mspid: Org2MSP
+    peers:
+      - peer1.org2.com
+
+  Org3:
+    mspid: Org3MSP
+    peers:
+      - peer1.org3.com
+
+#
+# [Optional]. But most apps would have this section so that channel objects can be constructed
+# based on the content below. If an app is creating channels, then it likely will not need this
+# section.
+#
+channels:
+  # name of the channel
+  charitychannel:
+    # List of orderers designated by the application to use for transactions on this channel. 
+    orderers:
+      - abacaba-orderer-clusterip
+      - abacaba-orderer2-clusterip
+      - abacaba-orderer3-clusterip
+
+    # Required. list of peers from participating orgs
+    peers:
+      peer1.org2.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+
+      peer1.org3.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+
+      
+#
+# List of orderers to send transaction and channel create/update requests to. For the time
+# being only one orderer is needed. 
+#
+orderers:
+  abacaba-orderer-clusterip:
+    url: grpcs://192.168.49.2:30750
+
+    # these are standard properties defined by the gRPC library
+    # they will be passed in as-is to gRPC client constructor
+    grpcOptions:
+      ssl-target-name-override: abacaba-orderer-clusterip
+
+    # In dev environment the Orderer is NOT enabled for TLS
+    tlsCACerts:
+      path: certs/tlsca.abacaba.com-cert.pem
+
+  abacaba-orderer2-clusterip:
+    url: grpcs://192.168.49.2:30750
+
+    # these are standard properties defined by the gRPC library
+    # they will be passed in as-is to gRPC client constructor
+    grpcOptions:
+      ssl-target-name-override: abacaba-orderer2-clusterip
+
+    # In dev environment the Orderer is NOT enabled for TLS
+    tlsCACerts:
+      path: certs/tlsca.abacaba.com-cert.pem
+
+  abacaba-orderer3-clusterip:
+    url: grpcs://192.168.49.2:30750
+
+    # these are standard properties defined by the gRPC library
+    # they will be passed in as-is to gRPC client constructor
+    grpcOptions:
+      ssl-target-name-override: abacaba-orderer3-clusterip
+
+    # In dev environment the Orderer is NOT enabled for TLS
+    tlsCACerts:
+      path: certs/tlsca.abacaba.com-cert.pem
+
+#
+# List of peers to send various requests to, including endorsement, query
+# and event listener registration.
+#
+peers:
+  peer1.org2.com:
+
+    url: grpcs://192.168.49.2:30851
+
+    grpcOptions:
+      ssl-target-name-override: localhost
+
+    tlsCACerts:
+      path: certs/first/ca.crt
+
+  peer1.org3.com:
+
+    url: grpcs://192.168.49.2:30951
+
+    grpcOptions:
+      ssl-target-name-override: localhost
+
+    tlsCACerts:
+      path: certs/second/ca.crt
+
+

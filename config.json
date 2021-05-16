@@ -1,0 +1,10 @@
+{
+  "channel": "charitychannel",
+  "userName": "Admin@org2.com",
+  "ccpPath": "./profiles/dev-connection.yaml",
+  "walletPath": "./wallet",
+  "applicationCC":"application",
+  "beneficiaryCC":"beneficiary",
+  "foundationCC": "foundation",
+  "transactionCC": "transaction"
+}
